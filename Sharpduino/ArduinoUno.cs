@@ -104,6 +104,16 @@ namespace Sharpduino
             this.SetDO(clock, true);
             this.SetDO(clock, false);
         }
+        public void shiftOut(ArduinoUnoPins data, ArduinoUnoPins clock, System.Collections.BitArray val)
+        {
+            if ((val.Count % 8) != 0) throw new ArgumentException("bit count invalid");
+            foreach (bool bit in val)
+            {
+                this.SetDO(data, bit);
+            }
+            this.SetDO(clock, true);
+            this.SetDO(clock, false);
+        }
 
         public void SetDO(ArduinoUnoPins pin, bool newValue)
         {
