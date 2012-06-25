@@ -88,19 +88,24 @@ namespace Sharpduino
             // Update the pin state
             firmata.SendMessage(new PinStateQueryMessage(){Pin = (byte) pin});
         }
-
-        public void shiftOut(ArduinoUnoPins data, ArduinoUnoPins clock, ArduinoUnoPins latch, System.Collections.BitArray val)
+        /// <summary>
+        /// Shift out a value
+        /// </summary>
+        /// <param name="val">Data to shift out in groups of 8</param>
+        /// <param name="data">Serial Data pin</param>
+        /// <param name="clock">Serial click pin</param>
+        /// <param name="latch">Register clock pin (latch) - Optional</param>
+        public void shiftOut(System.Collections.BitArray val, ArduinoUnoPins data, ArduinoUnoPins clock, ArduinoUnoPins latch = ArduinoUnoPins.NONE)
         {
             if ((val.Count % 8) != 0) throw new ArgumentException("bit count invalid");
-
-            this.SetDO(latch, false);
+            if(latch != ArduinoUnoPins.NONE) this.SetDO(latch, false);
             foreach (bool bit in val)
             {
                 this.SetDO(data, bit);
                 this.SetDO(clock, true);
                 this.SetDO(clock, false);
             }
-            this.SetDO(latch, true);
+            if (latch != ArduinoUnoPins.NONE) this.SetDO(latch, true);
         }
 
         public void SetDO(ArduinoUnoPins pin, bool newValue)

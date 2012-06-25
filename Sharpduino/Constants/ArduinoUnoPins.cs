@@ -21,6 +21,7 @@ namespace Sharpduino.Constants
         A2,
         A3,
         A4,
-        A5
+        A5,
+        NONE
     }
 }
