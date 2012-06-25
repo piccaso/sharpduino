@@ -89,30 +89,18 @@ namespace Sharpduino
             firmata.SendMessage(new PinStateQueryMessage(){Pin = (byte) pin});
         }
 
-        public void shiftOut(ArduinoUnoPins data, ArduinoUnoPins clock, byte val)
-        {
-            byte i;
-            for (i = 0; i < 8; i++)
-            {
-                //LSBFIRST - digitalWrite(dataPin, !!(val & (1 << i)));
-                //this.SetDO(data, !(0==(val & (1 << i))));
-
-                //digitalWrite(dataPin, !!(val & (1 << (7 - i))));
-                this.SetDO(data, !(0==(val & (1 << (7 - i)))));
-            }
-            // Pulse clock
-            this.SetDO(clock, true);
-            this.SetDO(clock, false);
-        }
-        public void shiftOut(ArduinoUnoPins data, ArduinoUnoPins clock, System.Collections.BitArray val)
+        public void shiftOut(ArduinoUnoPins data, ArduinoUnoPins clock, ArduinoUnoPins latch, System.Collections.BitArray val)
         {
             if ((val.Count % 8) != 0) throw new ArgumentException("bit count invalid");
+
+            this.SetDO(latch, false);
             foreach (bool bit in val)
             {
                 this.SetDO(data, bit);
+                this.SetDO(clock, true);
+                this.SetDO(clock, false);
             }
-            this.SetDO(clock, true);
-            this.SetDO(clock, false);
+            this.SetDO(latch, true);
         }
 
         public void SetDO(ArduinoUnoPins pin, bool newValue)
