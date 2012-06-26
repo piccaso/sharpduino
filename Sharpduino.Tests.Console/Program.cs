@@ -35,7 +35,7 @@ namespace Sharpduino.Tests.Consoles
                 if (++cnt % 8 == 0) Console.WriteLine();
             }
 
-            ArduinoUno uno = new ArduinoUno("COM5");
+            ArduinoUno uno = new ArduinoUno("COM5",true);
             Console.WriteLine("isInit = " + uno.IsInitialized.ToString());
 
             uno.shiftOut(bits, dataPin, clockPin, latchPin);

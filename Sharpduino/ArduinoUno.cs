@@ -18,9 +18,9 @@ namespace Sharpduino
         /// of the complexity from the end user
         /// </summary>
         /// <param name="comPort">The port of the arduino board. All other parameters are supposed to be the default ones.</param>
-        public ArduinoUno(string comPort)
+        public ArduinoUno(string comPort, bool autoReset = false)
         {
-            var provider = new ComPortProvider(comPort);
+            var provider = new ComPortProvider(comPort, autoReset: autoReset);
             firmata = new EasyFirmata(provider);
         }
 

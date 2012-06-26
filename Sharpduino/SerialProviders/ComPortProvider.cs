@@ -11,9 +11,10 @@ namespace Sharpduino.SerialProviders
         private SerialPort port;
 
         public ComPortProvider(string portName, 
-            int baudRate = 57600, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
+            int baudRate = 57600, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One, bool autoReset = false)
         {
             port = new SerialPort(portName,baudRate,parity,dataBits,stopBits);
+            if (autoReset) port.DtrEnable = true;
         }
 
          #region Proper Dispose Code
