@@ -19,6 +19,7 @@ namespace Sharpduino.Base
         {
             AddBasicMessageHandlers();
             AddBasicMessageCreators();
+            _receiveQueueThread.Start();
         }
 
         private void AddBasicMessageCreators()
