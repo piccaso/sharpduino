@@ -63,12 +63,12 @@ namespace Sharpduino
 
         /// <summary>
         /// Creates a new instance of the ArduinoUno. This implementation hides a lot
-        /// of the complexity from the end user
+        /// of the complexity from the end user. Serial port name is read from config
+        /// file.
         /// </summary>
-        /// <param name="comPort">The port of the arduino board. All other parameters are supposed to be the default ones.</param>
-        public ArduinoUno(string comPort)
+        public ArduinoUno()
         {
-            var provider = new ComPortProvider(comPort);
+            var provider = SerialProviderFactory.GetProvider(); 
             firmata = new EasyFirmata(provider);
         }
 

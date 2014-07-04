@@ -17,7 +17,7 @@ namespace Sharpduino.Tests.Consoles
         private static bool isInitialized = false;
         static void Main(string[] args)
         {
-            ComPortProvider port = new ComPortProvider("COM3");
+            SerialPortProvider port = new SerialPortProvider("COM3");
             using (var easyFirmata = new EasyFirmata(port))
             {
                 //easyFirmata.Initialized += easyFirmata_Initialized;

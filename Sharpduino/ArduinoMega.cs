@@ -20,7 +20,7 @@ namespace Sharpduino
         /// <param name="comPort">The port of the arduino board. All other parameters are supposed to be the default ones.</param>
         public ArduinoMega(string comPort)
         {
-            var provider = new ComPortProvider(comPort);
+            var provider = SerialProviderFactory.GetProvider(); // new ComPortProvider(comPort);
             firmata = new EasyFirmata(provider);
         }
 

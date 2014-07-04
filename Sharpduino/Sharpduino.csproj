@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -129,12 +130,14 @@
     <Compile Include="EventArguments\PinStateEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Handlers\DigitalMessageHandler.cs" />
-    <Compile Include="SerialProviders\ComPortProvider.cs" />
+    <Compile Include="SerialProviders\SerialPortProvider.cs" />
     <Compile Include="EventArguments\DataReceivedEventArgs.cs" />
     <Compile Include="SerialProviders\EnhancedSerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SerialProviders\ISerialProvider.cs" />
+    <Compile Include="SerialProviders\SerialProviderFactory.cs" />
+    <Compile Include="SerialProviders\TcpPortProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Sharpduino.cd" />
