@@ -11,8 +11,6 @@
     <RootNamespace>Sharpduino</RootNamespace>
     <AssemblyName>Sharpduino</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\sharpduino\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,18 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArduinoMega.cs" />
     <Compile Include="ArduinoUno.cs" />
+    <Compile Include="Constants\ArduinoMegaAnalogPins.cs" />
+    <Compile Include="Constants\ArduinoMegaPins.cs" />
+    <Compile Include="Constants\ArduinoMegaPWMPins.cs" />
     <Compile Include="Constants\ArduinoUnoAnalogPins.cs" />
     <Compile Include="Constants\ArduinoUnoPins.cs" />
     <Compile Include="Constants\ArduinoUnoPWMPins.cs" />
     <Compile Include="Base\BitHelper.cs" />
-    <Compile Include="Constants\ArduinoMegaAnalogPins.cs" />
-    <Compile Include="Constants\ArduinoMegaPins.cs" />
-    <Compile Include="Constants\ArduinoMegaPWMPins.cs" />
     <Compile Include="Constants\MessageConstants.cs" />
     <Compile Include="Constants\PinModes.cs" />
     <Compile Include="Constants\SysexCommands.cs" />
-    <Compile Include="ArduinoMega.cs" />
     <Compile Include="Creators\AnalogOutputMessageCreator.cs" />
     <Compile Include="Creators\BaseMessageCreator.cs" />
     <Compile Include="Creators\DigitalMessageCreator.cs" />
@@ -133,13 +131,15 @@
     <Compile Include="Handlers\DigitalMessageHandler.cs" />
     <Compile Include="SerialProviders\ComPortProvider.cs" />
     <Compile Include="EventArguments\DataReceivedEventArgs.cs" />
+    <Compile Include="SerialProviders\EnhancedSerialPort.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SerialProviders\ISerialProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Sharpduino.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
