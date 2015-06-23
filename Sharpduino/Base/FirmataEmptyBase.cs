@@ -46,10 +46,18 @@ namespace Sharpduino.Base
         /// </summary>
         protected Dictionary<Type, IMessageCreator> MessageCreators { get; private set; }
 
+        protected Thread _receiveQueueThread;
+
         private bool processQueue;
         private bool firstTime = true;
 
-        protected FirmataEmptyBase(ISerialProvider provider)
+
+        /// <summary>
+        /// By default the receive queue thread will not be started. Descendents must start the thread.
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="startReceiveThread"></param>
+        protected FirmataEmptyBase(ISerialProvider provider, bool startReceiveThread = false)
         {
             AvailableHandlers = new List<IMessageHandler>();
             AppropriateHandlers = new List<IMessageHandler>();
@@ -57,13 +65,13 @@ namespace Sharpduino.Base
             MessageCreators = new Dictionary<Type, IMessageCreator>();
             MessageBroker = new MessageBroker();
             this.Provider = provider;
-            Initialize();
+            Initialize(startReceiveThread);
         }
 
         /// <summary>
         /// Initialize the comport
         /// </summary>
-        private void Initialize()
+        private void Initialize(bool startReceive)
         {
             if (firstTime)
             {
@@ -72,8 +80,9 @@ namespace Sharpduino.Base
                 // Begin the parsing thread
                 processQueue = true;
                 var t = new ThreadStart(ReceiveQueueThread);
-                var thr = new Thread(t);
-                thr.Start();
+                _receiveQueueThread = new Thread(t);
+                if (startReceive)
+                    _receiveQueueThread.Start();
 
                 // Subscribe to the DataReceived messages
                 Provider.DataReceived += ProviderDataReceived;
