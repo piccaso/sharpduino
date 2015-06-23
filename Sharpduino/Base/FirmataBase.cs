@@ -28,7 +28,7 @@ namespace Sharpduino.Base
                                    where t.IsClass && !t.IsAbstract && //We are searching for a non-abstract class 
                                          t.Namespace == @namespace && //in the namespace we provide  
                                          t.BaseType.GetGenericArguments()[0] != typeof (StaticMessage) && // Do not include the static message creator
-                          t.GetInterfaces().Any(x => x.GetGenericTypeDefinition() == typeof(IMessageCreator<>)) //that implements IMessageCreator<>
+                          t.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IMessageCreator<>)) //that implements IMessageCreator<>
                     select t).ToList();
 
             // Create an instance for each type we found and add it to the MessageCreators with 
